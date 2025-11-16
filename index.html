@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Clash of Clans Hub | Your Name</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #030712;
+      --bg-alt: #020617;
+      --accent: #f97316;
+      --accent-soft: rgba(248, 113, 113, 0.14);
+      --text: #f9fafb;
+      --muted: #9ca3af;
+      --card: #020617;
+      --radius-xl: 18px;
+      --radius-2xl: 26px;
+      --shadow-soft: 0 20px 50px rgba(15, 23, 42, 0.9);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      background: radial-gradient(circle at top, #0f172a, #020617 55%);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 24px 16px 64px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 12px 18px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.96);
+      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.9);
+      position: sticky;
+      top: 16px;
+      z-index: 20;
+      backdrop-filter: blur(18px);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-mark {
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      background: conic-gradient(from 160deg, #f97316, #facc15, #22c55e, #f97316);
+      padding: 2px;
+    }
+
+    .logo-mark-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: inherit;
+      background: #020617;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 16px;
+      color: #fee2e2;
+    }
+
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .logo-title {
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+    }
+
+    .logo-sub {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 14px;
+    }
+
+    nav a {
+      padding: 6px 11px;
+      border-radius: 999px;
+      color: var(--muted);
+      transition: 0.2s ease;
+    }
+
+    nav a:hover {
+      background: rgba(148, 163, 184, 0.15);
+      color: var(--text);
+    }
+
+    .nav-cta {
+      padding: 7px 14px;
+      border-radius: 999px;
+      background: var(--accent);
+      color: #111827;
+      font-weight: 600;
+      box-shadow: 0 12px 30px rgba(248, 113, 22, 0.6);
+    }
+
+    .nav-cta:hover {
+      filter: brightness(1.05);
+      transform: translateY(-1px);
+    }
+
+    /* Hero */
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.4fr);
+      gap: 32px;
+      align-items: center;
+      margin-top: 40px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 9px 4px 4px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      background: rgba(15, 23, 42, 0.96);
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+
+    .eyebrow-pill {
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(248, 113, 22, 0.22);
+      color: #fed7aa;
+      font-weight: 600;
+      font-size: 11px;
+    }
+
+    h1 {
+      font-size: clamp(32px, 4vw, 40px);
+      line-height: 1.1;
+      margin-bottom: 12px;
+    }
+
+    h1 span.highlight {
+      background: linear-gradient(130deg, #f97316, #facc15);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero-sub {
+      font-size: 14px;
+      color: var(--muted);
+      max-width: 520px;
+      margin-bottom: 20px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .btn-primary {
+      padding: 9px 16px;
+      border-radius: 999px;
+      border: none;
+      outline: none;
+      background: linear-gradient(120deg, #f97316, #facc15);
+      color: #111827;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 18px 40px rgba(248, 113, 22, 0.5);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-secondary {
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: transparent;
+      color: var(--muted);
+      font-size: 13px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(15, 23, 42, 0.95);
+      color: var(--text);
+    }
+
+    .hero-meta {
+      margin-top: 18px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .hero-meta span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .hero-meta-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 12px rgba(34, 197, 94, 0.9);
+    }
+
+    /* Hero side card */
+    .hero-card {
+      border-radius: var(--radius-2xl);
+      background: radial-gradient(circle at top left, rgba(248, 113, 22, 0.5), transparent 55%),
+                  radial-gradient(circle at bottom, rgba(15, 23, 42, 1), #020617);
+      padding: 18px 18px 16px;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+      min-height: 250px;
+    }
+
+    .hero-card-tag {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      color: #e5e7eb;
+    }
+
+    .orbit {
+      width: 180px;
+      height: 180px;
+      border-radius: 999px;
+      border: 1px dashed rgba(148, 163, 184, 0.5);
+      margin: 10px auto 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .orbit-center {
+      width: 86px;
+      height: 86px;
+      border-radius: 999px;
+      background: radial-gradient(circle at top, #f97316, #111827);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      text-align: center;
+      padding: 8px;
+      color: #fef3c7;
+    }
+
+    .orbit-dot {
+      width: 30px;
+      height: 30px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.96);
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      position: absolute;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      color: #e5e7eb;
+      text-align: center;
+      padding: 3px;
+    }
+
+    .orbit-dot:nth-child(1) { top: -10px; left: 50%; transform: translateX(-50%); }
+    .orbit-dot:nth-child(2) { right: -10px; top: 50%; transform: translateY(-50%); }
+    .orbit-dot:nth-child(3) { bottom: -10px; left: 50%; transform: translateX(-50%); }
+    .orbit-dot:nth-child(4) { left: -10px; top: 50%; transform: translateY(-50%); }
+
+    .hero-card-footer {
+      margin-top: 10px;
+      font-size: 11px;
+      color: #cbd5f5;
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+      font-size: 10px;
+    }
+
+    .pill {
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(148, 163, 184, 0.3);
+    }
+
+    /* Section base */
+    section {
+      margin-top: 52px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .section-title {
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    .section-kicker {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+    }
+
+    .section-description {
+      font-size: 13px;
+      color: var(--muted);
+      max-width: 430px;
+    }
+
+    /* Guides / Features */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      border-radius: var(--radius-xl);
+      background: var(--card);
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      padding: 14px 14px 12px;
+      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.85);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      margin-bottom: 2px;
+    }
+
+    .card-title {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .card-body {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .card-meta {
+      font-size: 11px;
+      color: #e5e7eb;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .card-chip {
+      padding: 3px 7px;
+      border-radius: 999px;
+      background: rgba(248, 113, 22, 0.24);
+      font-size: 10px;
+      color: #fed7aa;
+    }
+
+    /* About / Player info */
+    .about {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.4fr);
+      gap: 22px;
+      align-items: flex-start;
+    }
+
+    .about-highlight {
+      border-radius: var(--radius-xl);
+      padding: 14px 14px 12px;
+      background: rgba(15, 23, 42, 0.96);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .about-highlight strong {
+      color: #fef3c7;
+    }
+
+    .about-list {
+      margin-top: 10px;
+      padding-left: 18px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .about-list li {
+      margin-bottom: 6px;
+    }
+
+    .about-metrics {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      font-size: 13px;
+    }
+
+    .metric {
+      border-radius: var(--radius-xl);
+      padding: 9px 11px;
+      background: rgba(15, 23, 42, 0.96);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 16px;
+      margin-bottom: 2px;
+    }
+
+    .metric span {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    /* Videos / Content section */
+    .videos-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      font-size: 13px;
+    }
+
+    .video-card {
+      border-radius: var(--radius-xl);
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      background: rgba(15, 23, 42, 0.96);
+      padding: 10px 10px 9px;
+      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.8);
+    }
+
+    .video-thumb {
+      border-radius: 12px;
+      height: 120px;
+      background: linear-gradient(135deg, #f97316, #facc15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      font-weight: 800;
+      color: #111827;
+      margin-bottom: 8px;
+    }
+
+    .video-title {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 3px;
+    }
+
+    .video-meta {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    /* Contact / Requests */
+    .contact {
+      border-radius: var(--radius-2xl);
+      background: radial-gradient(circle at top, rgba(248, 113, 22, 0.35), transparent 55%),
+                  rgba(15, 23, 42, 0.97);
+      padding: 18px 18px 16px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      box-shadow: var(--shadow-soft);
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.4fr);
+      gap: 20px;
+      margin-top: 28px;
+    }
+
+    .contact p {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .contact-form {
+      display: grid;
+      gap: 9px;
+      font-size: 12px;
+    }
+
+    .field {
+      display: grid;
+      gap: 4px;
+    }
+
+    label {
+      color: #e5e7eb;
+      font-size: 12px;
+    }
+
+    input,
+    textarea {
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      padding: 8px 11px;
+      background: rgba(15, 23, 42, 0.94);
+      color: #e5e7eb;
+      font-size: 12px;
+      outline: none;
+    }
+
+    textarea {
+      border-radius: 14px;
+      min-height: 70px;
+      resize: vertical;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: rgba(148, 163, 184, 0.8);
+    }
+
+    .contact-aside {
+      font-size: 12px;
+      color: #e5e7eb;
+    }
+
+    .contact-aside ul {
+      list-style: none;
+      margin-top: 8px;
+    }
+
+    .contact-aside li {
+      margin-bottom: 4px;
+      color: var(--muted);
+    }
+
+    .contact-aside strong {
+      color: #fef3c7;
+    }
+
+    .contact-social {
+      margin-top: 10px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .social-pill {
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    footer {
+      margin-top: 32px;
+      font-size: 11px;
+      color: var(--muted);
+      text-align: center;
+      padding-top: 16px;
+      border-top: 1px solid rgba(148, 163, 184, 0.3);
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      header {
+        border-radius: 18px;
+      }
+      .hero,
+      .about,
+      .contact {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .hero-card {
+        order: -1;
+      }
+      .cards-grid,
+      .videos-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+      }
+
+      nav {
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      .hero {
+        margin-top: 28px;
+      }
+
+      .cards-grid,
+      .videos-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .page {
+        padding-inline: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="logo">
+        <div class="logo-mark">
+          <div class="logo-mark-inner">CoC</div>
+        </div>
+        <div class="logo-text">
+          <!-- CHANGE THIS: Your brand name -->
+          <span class="logo-title">LEGENDS COC HUB</span>
+          <span class="logo-sub">Guides • Bases • Attacks</span>
+        </div>
+      </div>
+      <nav>
+        <a href="#about">About</a>
+        <a href="#guides">Guides</a>
+        <a href="#videos">Videos</a>
+        <a href="#contact" class="nav-cta">Join / Request</a>
+      </nav>
+    </header>
+
+    <main>
+      <!-- HERO -->
+      <section class="hero">
+        <div>
+          <div class="eyebrow">
+            <span class="eyebrow-pill">Clash of Clans content</span>
+            <span>Upgrade plans • Base links • Attack tips</span>
+          </div>
+          <h1>
+            All your <span class="highlight">Clash of Clans</span> guides in one simple place.
+          </h1>
+          <p class="hero-sub">
+            Put your description here. Example: “I create easy, no-nonsense Clash of Clans guides:
+            upgrade paths, war bases, farming bases and attack strategies for every Town Hall.”
+          </p>
+          <div class="hero-actions">
+            <!-- CHANGE href to your Discord / WhatsApp / Linktree -->
+            <button class="btn-primary" onclick="COMING SOO'">
+              Join my clan / Discord
+              <span>⚔</span>
+            </button>
+            <!-- CHANGE href to your YouTube -->
+            <button class="btn-secondary" onclick="window.location.href='https://www.youtube.com/channel/UCyHbJWVDxBmFg8BmiiJX9rA'">
+              Watch my YouTube 🡕
+            </button>
+          </div>
+          <div class="hero-meta">
+            <span><span class="hero-meta-dot"></span> New guides weekly (change this)</span>
+            <span>• Main account: TH 15 (pushing to TH 16)</span>
+          </div>
+        </div>
+
+        <aside class="hero-card">
+          <span class="hero-card-tag">At a glance</span>
+          <div class="orbit">
+            <div class="orbit-center">
+              Town Hall<br>Upgrade Paths
+            </div>
+            <div class="orbit-dot">War<br>Bases</div>
+            <div class="orbit-dot">Farming</div>
+            <div class="orbit-dot">Attack<br>Guides</div>
+            <div class="orbit-dot">Clan<br>Tips</div>
+          </div>
+          <div class="hero-card-footer">
+            <div>
+              <div style="font-size:12px; font-weight:600;">Start with your Town Hall level.</div>
+              <div class="pill-row">
+                <span class="pill">Pick TH level</span>
+                <span class="pill">Grab base link</span>
+                <span class="pill">Read army + tips</span>
+              </div>
+            </div>
+            <div style="text-align:right;font-size:11px;">
+              <div>Made for your audience.</div>
+              <div>Edit text, keep layout.</div>
+            </div>
+          </div>
+        </aside>
+      </section>
+
+      <!-- ABOUT / PLAYER INFO -->
+      <section id="about">
+        <div class="section-header">
+          <div>
+            <div class="section-kicker">About</div>
+            <h2 class="section-title">Who runs this Clash hub?</h2>
+          </div>
+          <p class="section-description">
+            Replace this with a short explanation of who you are, how long you’ve played, and what kind
+            of content you focus on (farming, wars, pushing, F2P etc.).
+          </p>
+        </div>
+
+        <div class="about">
+          <div class="about-highlight">
+            <!-- WRITE ABOUT YOURSELF HERE -->
+            <strong>Write a direct intro here.</strong>
+            <br />
+            Example: “I’m Ajayraj Singh, a long-time Clash player focused on helping casual and Free2Play players
+            upgrade smart and stop wasting time and loot.”
+            <ul class="about-list">
+              <li>🏰 Main account: TH 15 / 16 (change to your real TH)</li>
+              <li>⚔ Favourite modes: Wars, Clan War League, pushing (change)</li>
+              <li>💎 Style: F2P / low-spend / maxer (change)</li>
+            </ul>
+          </div>
+
+          <div class="about-metrics">
+            <div class="metric">
+              <strong>20k+</strong>
+              <span>Total attacks played (put your own flex stats).</span>
+            </div>
+            <div class="metric">
+              <strong>50+</strong>
+              <span>Bases tested in war & legends (or realistic number).</span>
+            </div>
+            <div class="metric">
+              <strong>3</strong>
+              <span>Main content types: bases, upgrades, attack guides.</span>
+            </div>
+            <div class="metric">
+              <strong>0</strong>
+              <span>Pay-to-win guides. Everything can work for F2P with time.</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- GUIDES / BASES / UPGRADES -->
+      <section id="guides">
+        <div class="section-header">
+          <div>
+            <div class="section-kicker">Guides</div>
+            <h2 class="section-title">Start from what you need</h2>
+          </div>
+          <p class="section-description">
+            Use these three “big buckets” to organise your content. Inside each, you can add links
+            to Google Docs, images, or YouTube videos.
+          </p>
+        </div>
+
+        <div class="cards-grid">
+          <article class="card">
+            <div class="card-label">01 • Upgrades</div>
+            <h3 class="card-title">Town Hall upgrade paths</h3>
+            <p class="card-body">
+              Recommended order for labs, heroes, defences and storages for each Town Hall.
+              You can link separate pages / docs here:
+              TH 8–10, TH 11–13, TH 14–16, etc.
+            </p>
+            <div class="card-meta">
+              <span class="card-chip">Smart progression</span>
+              <!-- CHANGE href -->
+              <a href="https://your-upgrade-guide-link.com" style="font-size:11px;">View upgrade guide ↗</a>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-label">02 • Bases</div>
+            <h3 class="card-title">Base layouts & links</h3>
+            <p class="card-body">
+              Farming, trophy and war bases. Add your own base links here so people can
+              copy them straight into the game.
+            </p>
+            <div class="card-meta">
+              <span class="card-chip">Base links ready</span>
+              <!-- CHANGE href -->
+              <a href="https://your-bases-link.com" style="font-size:11px;">See all bases ↗</a>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-label">03 • Attacks</div>
+            <h3 class="card-title">Attack strategies & armies</h3>
+            <p class="card-body">
+              Simple army comps with spell + funnel explanations. E.g. Queen Charge
+              Hybrid, Electro Dragon spam, Super Archer Blimp, etc.
+            </p>
+            <div class="card-meta">
+              <span class="card-chip">Video + text</span>
+              <!-- CHANGE href -->
+              <a href="https://your-attack-guides-link.com" style="font-size:11px;">Learn attacks ↗</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- VIDEOS / CONTENT -->
+      <section id="videos">
+        <div class="section-header">
+          <div>
+            <div class="section-kicker">Videos</div>
+            <h2 class="section-title">Latest Clash uploads</h2>
+          </div>
+          <p class="section-description">
+            Replace these cards with your own YouTube videos. You can link straight to YouTube
+            or embed iframes later if you want.
+          </p>
+        </div>
+
+        <div class="videos-grid">
+          <!-- VIDEO 1 -->
+          <article class="video-card">
+            <div class="video-thumb">
+              ▶
+            </div>
+            <div class="video-title">
+              TH 14 Farming Base & Upgrade Plan
+            </div>
+            <div class="video-meta">
+              <!-- CHANGE href -->
+              <a href="https://www.youtube.com/watch?v=VIDEO_ID_1" target="_blank">
+                Watch on YouTube
+              </a>
+              <br />
+              12 min • Base + upgrade logic
+            </div>
+          </article>
+
+          <!-- VIDEO 2 -->
+          <article class="video-card">
+            <div class="video-thumb">
+              ▶
+            </div>
+            <div class="video-title">
+              Simple Queen Charge Hybrid Guide
+            </div>
+            <div class="video-meta">
+              <a href="https://www.youtube.com/watch?v=VIDEO_ID_2" target="_blank">
+                Watch on YouTube
+              </a>
+              <br />
+              9 min • Step-by-step attack
+            </div>
+          </article>
+
+          <!-- VIDEO 3 -->
+          <article class="video-card">
+            <div class="video-thumb">
+              ▶
+            </div>
+            <div class="video-title">
+              Best War Bases for TH 15 (No Legends)
+            </div>
+            <div class="video-meta">
+              <a href="https://www.youtube.com/watch?v=VIDEO_ID_3" target="_blank">
+                Watch on YouTube
+              </a>
+              <br />
+              14 min • Anti 3-star focus
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- CONTACT / REQUESTS -->
+      <section id="contact">
+        <div class="section-header">
+          <div>
+            <div class="section-kicker">Requests</div>
+            <h2 class="section-title">Need a custom base or help?</h2>
+          </div>
+          <p class="section-description">
+            You can either keep this as a simple “message form” or just use this section to show
+            your Discord, WhatsApp, Instagram etc.
+          </p>
+        </div>
+
+        <div class="contact">
+          <div>
+            <p>Use this form for:</p>
+            <ul style="font-size:12px; color:var(--muted); margin-bottom:8px; padding-left:18px;">
+              <li>• Custom war / CWL base requests</li>
+              <li>• Full village review & upgrade plan</li>
+              <li>• Attack coaching or army suggestions</li>
+            </ul>
+            <form class="contact-form" onsubmit="handleSubmit(event)">
+              <div class="field">
+                <label for="name">In-game name / real name</label>
+                <input id="name" type="text" placeholder="Your IGN or name" required />
+              </div>
+              <div class="field">
+                <label for="email">Email (or contact)</label>
+                <input id="email" type="email" placeholder="you@example.com" required />
+              </div>
+              <div class="field">
+                <label for="message">What do you need?</label>
+                <textarea id="message" placeholder="Tell me your TH level, what you need (base / guide / coaching) and your time zone..." required></textarea>
+              </div>
+              <button class="btn-primary" type="submit">Send request</button>
+              <div id="form-status" style="font-size:11px; color:var(--muted); margin-top:4px;"></div>
+            </form>
+          </div>
+
+          <div class="contact-aside">
+            <strong>Direct contact</strong>
+            <ul>
+              <!-- CHANGE THESE TO YOUR REAL CONTACTS -->
+              <li>Discord: <strong>YourDiscord#0000</strong></li>
+              <li>Clan tag: <strong>#YOURCLANTAG</strong></li>
+              <li>Region / time: UK / Europe (change)</li>
+            </ul>
+            <div class="contact-social">
+              <span class="social-pill">YouTube: @yourchannel</span>
+              <span class="social-pill">Instagram: @yourcocpage</span>
+              <span class="social-pill">TikTok (if you use it)</span>
+            </div>
+            <p style="margin-top:10px; color:var(--muted);">
+              Delete any platform you don’t actually use. Better to have 1–2 places where you reply fast than 5 dead links.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      © <span id="year"></span> Your CoC Hub • Not affiliated with Supercell.
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    function handleSubmit(e) {
+      e.preventDefault();
+      const status = document.getElementById("form-status");
+      status.textContent = "Demo only: connect this form to a real service (Formspree / Netlify Forms / Google Forms) if you want to get emails.";
+    }
+  </script>
+</body>
+</html>
