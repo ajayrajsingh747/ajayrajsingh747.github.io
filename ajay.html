@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Ajay Dasing | CoC Upgrade Tracker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #020617;
+      --bg-alt: #020617;
+      --card: #020817;
+      --accent: #22d3ee;
+      --accent-soft: rgba(34, 211, 238, 0.18);
+      --accent-2: #a855f7;
+      --text: #f9fafb;
+      --muted: #9ca3af;
+      --border: #1f2937;
+      --radius: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top, #0f172a 0, #020617 40%, #000 100%);
+      color: var(--text);
+      padding: 16px;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        radial-gradient(1px 1px at 20% 20%, rgba(148, 163, 184, 0.6), transparent),
+        radial-gradient(1px 1px at 80% 60%, rgba(148, 163, 184, 0.4), transparent);
+      opacity: 0.6;
+      z-index: -1;
+    }
+
+    .app {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.96);
+      border: 1px solid #1f2937;
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.95);
+      position: sticky;
+      top: 8px;
+      z-index: 10;
+      backdrop-filter: blur(18px);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-orb {
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      padding: 2px;
+      background: conic-gradient(from 200deg, #22d3ee, #a855f7, #f97316, #22d3ee);
+    }
+
+    .logo-orb-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: inherit;
+      background: radial-gradient(circle at 30% 20%, #22d3ee, #020617 60%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 15px;
+      letter-spacing: 0.06em;
+      color: #e0f2fe;
+    }
+
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .logo-title {
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .logo-sub {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+    }
+
+    .nav-hint {
+      font-size: 11px;
+      color: var(--muted);
+      text-align: right;
+    }
+
+    main {
+      margin-top: 22px;
+      display: grid;
+      grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.6fr);
+      gap: 18px;
+    }
+
+    @media (max-width: 900px) {
+      main {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .nav-hint {
+        text-align: left;
+      }
+    }
+
+    .card {
+      background: rgba(15, 23, 42, 0.98);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 12px 14px 12px;
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.95);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      align-items: baseline;
+      margin-bottom: 8px;
+    }
+
+    .card-title {
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .card-sub {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      font-size: 11px;
+      color: var(--muted);
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .pill span.dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 10px rgba(34, 197, 94, 0.9);
+    }
+
+    .field-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    @media (max-width: 640px) {
+      .field-row {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      font-size: 12px;
+    }
+
+    .field-label {
+      display: flex;
+      justify-content: space-between;
+      color: var(--muted);
+    }
+
+    .field-label strong {
+      color: #e5e7eb;
+    }
+
+    select,
+    input[type="number"],
+    input[type="range"] {
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: #020617;
+      color: #e5e7eb;
+      padding: 6px 8px;
+      font-size: 13px;
+    }
+
+    input[type="range"] {
+      padding: 0;
+      accent-color: var(--accent);
+    }
+
+    .small-note {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .progress-summary {
+      margin-top: 10px;
+      display: grid;
+      gap: 7px;
+      font-size: 13px;
+    }
+
+    .summary-row-label {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+    }
+
+    .summary-row-value {
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .result-highlight {
+      padding: 7px 8px;
+      border-radius: 10px;
+      background: rgba(34, 211, 238, 0.07);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      margin-top: 8px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .hero,
+    .defence {
+      font-size: 12px;
+      margin-top: 8px;
+    }
+
+    .hero h3,
+    .defence h3 {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: #e5e7eb;
+    }
+
+    .table-scroll {
+      margin-top: 8px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: #020617;
+      max-height: 280px;
+      overflow: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+
+    th, td {
+      padding: 6px 8px;
+      text-align: left;
+      border-bottom: 1px solid #111827;
+    }
+
+    th {
+      background: #020617;
+      font-weight: 500;
+      color: var(--muted);
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+
+    tr:nth-child(even) td {
+      background: #020712;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    .level-input {
+      width: 52px;
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 8px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      padding: 7px 12px;
+      border-radius: 999px;
+      border: none;
+      background: linear-gradient(120deg, var(--accent), var(--accent-2));
+      color: #020617;
+      font-size: 13px;
+      font-weight: 600;
+      box-shadow: 0 18px 40px rgba(34, 211, 238, 0.5);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-secondary {
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(15, 23, 42, 0.96);
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    footer {
+      margin-top: 18px;
+      font-size: 11px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    footer span {
+      color: #e5e7eb;
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <div class="logo">
+        <div class="logo-orb">
+          <div class="logo-orb-inner">AD</div>
+        </div>
+        <div class="logo-text">
+          <span class="logo-title">Ajay Dasing</span>
+          <span class="logo-sub">Clash of Clans Upgrade Tracker</span>
+        </div>
+      </div>
+      <div class="nav-hint">
+        Mini Clash Ninja-style tracker • Data saved locally in your browser
+      </div>
+    </header>
+
+    <main>
+      <!-- LEFT: CONTROLS & SUMMARY -->
+      <section class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Your village overview</div>
+            <div class="card-sub">
+              Pick your Town Hall and rough completion to get a quick
