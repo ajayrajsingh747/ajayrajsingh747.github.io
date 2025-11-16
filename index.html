@@ -1169,6 +1169,89 @@
       { threshold: 0.15 }
     );
     animated.forEach(el => observer.observe(el));
+    // ===== Base Progress Calculator =====
+    (function () {
+      const maxLevels = {
+        13: { king: 75, queen: 75, warden: 50, champ: 30, eagle: 4, scatter: 2, xbow: 7, inferno: 7 },
+        14: { king: 80, queen: 80, warden: 55, champ: 35, eagle: 5, scatter: 3, xbow: 8, inferno: 8 },
+        15: { king: 85, queen: 85, warden: 60, champ: 40, eagle: 5, scatter: 4, xbow: 9, inferno: 9 },
+      };
+
+      const timePerLevel = {
+        hero: 1.5,  // days per hero level (average)
+        eagle: 7,
+        scatter: 6,
+        xbow: 4,
+        inferno: 5,
+      };
+
+      const thSel = document.getElementById("bc-th");
+      const resultBox = document.getElementById("bc-result");
+      const btn = document.getElementById("bc-calc");
+
+      if (!thSel || !resultBox || !btn) return; // safety if section missing
+
+      btn.addEventListener("click", () => {
+        const th = parseInt(thSel.value, 10);
+        const max = maxLevels[th];
+        if (!max) {
+          resultBox.textContent = "Unknown Town Hall level.";
+          return;
+        }
+
+        const current = {
+          king: +document.getElementById("bc-king").value || 0,
+          queen: +document.getElementById("bc-queen").value || 0,
+          warden: +document.getElementById("bc-warden").value || 0,
+          champ: +document.getElementById("bc-champ").value || 0,
+          eagle: +document.getElementById("bc-eagle").value || 0,
+          scatter: +document.getElementById("bc-scatter").value || 0,
+          xbow: +document.getElementById("bc-xbow").value || 0,
+          inferno: +document.getElementById("bc-inferno").value || 0,
+        };
+
+        const clamp = (value, maxVal) => Math.max(0, Math.min(value, maxVal));
+
+        Object.keys(current).forEach(key => {
+          current[key] = clamp(current[key], max[key]);
+        });
+
+        const levelsLeft = {
+          king: max.king - current.king,
+          queen: max.queen - current.queen,
+          warden: max.warden - current.warden,
+          champ: max.champ - current.champ,
+          eagle: max.eagle - current.eagle,
+          scatter: max.scatter - current.scatter,
+          xbow: max.xbow - current.xbow,
+          inferno: max.inferno - current.inferno,
+        };
+
+        let totalDays = 0;
+        totalDays += levelsLeft.king * timePerLevel.hero;
+        totalDays += levelsLeft.queen * timePerLevel.hero;
+        totalDays += levelsLeft.warden * timePerLevel.hero;
+        totalDays += levelsLeft.champ * timePerLevel.hero;
+        totalDays += levelsLeft.eagle * timePerLevel.eagle;
+        totalDays += levelsLeft.scatter * timePerLevel.scatter;
+        totalDays += levelsLeft.xbow * timePerLevel.xbow;
+        totalDays += levelsLeft.inferno * timePerLevel.inferno;
+
+        totalDays = Math.max(0, Math.round(totalDays));
+        const months = (totalDays / 30).toFixed(1);
+
+        resultBox.innerHTML = `
+          <div style="margin-bottom: 6px; font-weight: 600;">Upgrade time estimate:</div>
+          <div>🧱 <strong>Total days remaining:</strong> ${totalDays} days (approx)</div>
+          <div>⌛ <strong>Total months:</strong> ${months} months</div>
+          <div style="margin-top: 8px; font-size: 12px; color: #9ca3af;">
+            This is based on heroes + core defences only, using average upgrade times.
+            Real time will differ depending on builders, books, hammers and how active you farm.
+          </div>
+        `;
+      });
+    })();
+
   </script>
 </body>
 </html>
